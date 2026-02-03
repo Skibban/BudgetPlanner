@@ -8,6 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BudgetPlanner.ViewModels;
+using BudgetPlanner.Views;
 
 namespace BudgetPlanner
 {
@@ -16,9 +18,21 @@ namespace BudgetPlanner
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly MainViewModel _viewModel;
+
+        public MainWindow(MainViewModel viewModel)
         {
             InitializeComponent();
+            _viewModel = viewModel;
+            DataContext = _viewModel;
+        }
+
+        private void TabControl_SelectionChanged(object sender,SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl)
+            {
+                _viewModel.RefreshAllData(); // Refreshes when tab changes
+            }
         }
     }
 }

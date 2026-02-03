@@ -1,12 +1,45 @@
 ﻿<Window x:Class="BudgetPlanner.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BudgetPlanner"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:views="clr-namespace:BudgetPlanner.Views"
+        Title="Budget Planner" Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen">
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#2C3E50" Padding="15">
+            <StackPanel>
+                <TextBlock Text="BUDGETPLANERAREN" 
+                         FontSize="24" 
+                         FontWeight="Bold" 
+                         Foreground="White"
+                         HorizontalAlignment="Center"/>
+                <TextBlock Text="Vi håller koll på slantarna" 
+                         FontSize="12" 
+                         Foreground="LightGray"
+                         HorizontalAlignment="Center"
+                         Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content with Tabs -->
+        <TabControl Grid.Row="1" Margin="10" SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Header="Entry Management">
+                <views:EntryView DataContext="{Binding EntryViewModel}"/>
+            </TabItem>
+
+            <TabItem Header="Summary">
+                <views:SummaryView DataContext="{Binding SummaryViewModel}"/>
+            </TabItem>
+
+            <TabItem Header="Monthly Estimates">
+                <views:MonthlyEstimateView DataContext="{Binding MonthlyEstimateViewModel}"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
